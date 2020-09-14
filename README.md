@@ -17,3 +17,17 @@ const Root = () => (
   </DialogsProvider>
 );
 ```
+
+## API
+
+### Hooks
+
+**useDialogsContainer**  
+_pushDialog(component, props): number_ - push new dialog component, return dialog identificator  
+_closeDialogByID(dialogID)_ - close dialog by identificator  
+**useDialog** - return methods base on inherited context  
+_closeDialog_ - fucntion to close dialog
+
+## Example usage on CodeSandbox
+
+[![Edit Example usage of react-dialogs-container](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/example-usage-of-react-dialogs-container-7d3l1?fontsize=14&hidenavigation=1&theme=dark)
