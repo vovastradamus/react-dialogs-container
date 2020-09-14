@@ -7,18 +7,18 @@ export const DialogContenxt = createContext({
 });
 
 export const DialogsContext = createContext({
-  modals: [],
-  pushModal: noop,
-  closeModalByID: noop,
+  dialogs: [],
+  pushDialog: noop,
+  closeDialogByID: noop,
 });
 
 export const DialogsProvider = (props) => {
   const { children } = props;
-  const modalData = useDialogs();
+  const dialogData = useDialogs();
 
   return createElement(
     DialogsContext.Provider,
-    { value: { ...modalData } },
+    { value: { ...dialogData } },
     children
   );
 };

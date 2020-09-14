@@ -5,18 +5,18 @@ const DialogWrapper = (props) => {
   const {
     component: Component,
     props: componentProps,
-    modalID,
-    closeModalByID,
+    dialogID,
+    closeDialogByID,
   } = props;
-  const closeDialog = React.useCallback(() => closeModalByID(modalID), [
-    modalID,
-    closeModalByID,
+  const closeDialog = React.useCallback(() => closeDialogByID(dialogID), [
+    dialogID,
+    closeDialogByID,
   ]);
 
   return createElement(
     DialogContenxt.Provider,
     {
-      key: modalID,
+      key: dialogID,
       value: {
         closeDialog,
       },
@@ -29,15 +29,15 @@ const DialogWrapper = (props) => {
 };
 
 export const DialogsContainer = () => {
-  const { modals, closeModalByID } = useContext(DialogsContext);
+  const { dialogs, closeDialogByID } = useContext(DialogsContext);
 
-  const modalsView = modals.map((dialogProps) =>
+  const dialogsView = dialogs.map((dialogProps) =>
     createElement(DialogWrapper, {
-      key: dialogProps.modalID,
-      closeModalByID,
+      key: dialogProps.dialogID,
+      closeDialogByID,
       ...dialogProps,
     })
   );
 
-  return modalsView;
+  return dialogsView;
 };

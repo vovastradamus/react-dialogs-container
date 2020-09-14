@@ -3,37 +3,37 @@ import { dialogIDGenerator } from "./dialog.shared";
 import { DialogsContext, DialogContenxt } from "./dialog.contexts";
 
 export const useDialogs = () => {
-  const [modals, setModals] = useState([]);
+  const [dialogs, setDialogs] = useState([]);
 
-  const pushModal = (component, props = {}) => {
-    const newModal = {
+  const pushDialog = (component, props = {}) => {
+    const newDialog = {
       component,
       props,
-      modalID: dialogIDGenerator(),
+      dialogID: dialogIDGenerator(),
     };
 
-    setModals((m) => [...m, newModal]);
+    setDialogs((m) => [...m, newDialog]);
 
-    return newModal;
+    return newDialog.dialogID;
   };
 
-  const closeModalByID = (modalID) => {
-    setModals((m) => m.filter((modal) => modal.modalID !== modalID));
+  const closeDialogByID = (dialogID) => {
+    setDialogs((d) => d.filter((dialog) => dialog.dialogID !== dialogID));
   };
 
   return {
-    modals,
-    pushModal,
-    closeModalByID,
+    dialogs,
+    pushDialog,
+    closeDialogByID,
   };
 };
 
 export const useDialogsContainer = () => {
-  const { pushModal, closeModalByID } = useContext(DialogsContext);
+  const { pushDialog, closeDialogByID } = useContext(DialogsContext);
 
   return {
-    pushModal,
-    closeModalByID,
+    pushDialog,
+    closeDialogByID,
   };
 };
 
