@@ -1,0 +1,33 @@
+{
+  "name": "react-dialogs-container",
+  "version": "1.0.0",
+  "description": "Lightweight hooks ready dialog container",
+  "main": "dist/index.js",
+  "module": "dist/index.es.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "rollup -c --environment INCLUDE_DEPS,BUILD:production"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/vovastradamus/react-modals-container.git"
+  },
+  "author": "vovastradamus",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/vovastradamus/react-modals-container/issues"
+  },
+  "homepage": "https://github.com/vovastradamus/react-modals-container#readme",
+  "keywords": [
+    "react"
+  ],
+  "peerDependencies": {
+    "react": "^16.13.1",
+    "react-dom": "^16.13.1"
+  },
+  "devDependencies": {
+    "parcel": "^1.12.4",
+    "rollup": "^2.26.11"
+  },
+  "dependencies": {}
+}
