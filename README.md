@@ -10,6 +10,16 @@ Library for manage dialogs inside application
 ## Example to use
 
 ```js
+const App = () => {
+  const { pushDialog } = useDialogsContainer();
+
+  return (
+    <button onClick={() => pushDialog(ModalComponent, { taste: "So tasty" })}>
+      Open Modal
+    </button>
+  );
+};
+
 const Root = () => (
   <DialogsProvider>
     <App />
