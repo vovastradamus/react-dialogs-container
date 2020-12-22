@@ -1,4 +1,4 @@
-import React, { useContext, createElement } from "react";
+import { useContext, createElement, isValidElement, cloneElement } from "react";
 import { DialogContenxt, DialogsContext } from "./dialog.contexts";
 
 const DialogWrapper = (props) => {
@@ -8,10 +8,7 @@ const DialogWrapper = (props) => {
     dialogID,
     closeDialogByID,
   } = props;
-  const closeDialog = React.useCallback(() => closeDialogByID(dialogID), [
-    dialogID,
-    closeDialogByID,
-  ]);
+  const closeDialog = () => closeDialogByID(dialogID);
 
   return createElement(
     DialogContenxt.Provider,
@@ -21,10 +18,15 @@ const DialogWrapper = (props) => {
         closeDialog,
       },
     },
-    createElement(Component, {
-      closeDialog: closeDialog,
-      ...componentProps,
-    })
+    isValidElement(Component)
+      ? cloneElement(Component, {
+          closeDialog: closeDialog,
+          ...componentProps,
+        })
+      : createElement(Component, {
+          closeDialog: closeDialog,
+          ...componentProps,
+        })
   );
 };
 

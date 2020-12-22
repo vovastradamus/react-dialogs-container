@@ -1,5 +1,5 @@
 export const dialogIDGenerator = (() => {
-  let modalID = 1;
+  let modalID = 0;
   return () => {
     modalID += 1;
     return modalID;
