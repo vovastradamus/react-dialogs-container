@@ -1,6 +1,6 @@
 {
   "name": "react-dialogs-container",
-  "version": "1.4.0-2",
+  "version": "1.4.0",
   "type": "module",
   "description": "Lightweight hooks ready dialogs management",
   "main": "dist/main.js",
