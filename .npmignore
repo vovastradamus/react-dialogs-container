@@ -1,0 +1,6 @@
+# src
+# __test__
+# .parcel-cacheball
+# .github
+*
+!dist/*

@@ -1,10 +1,13 @@
-import { useState, useContext } from "react";
+import { useState, useContext, useEffect, useRef } from "react";
 import { dialogIDGenerator } from "./dialog.shared";
 import { DialogsContext, DialogContenxt } from "./dialog.contexts";
 
-export const useDialogs = () => {
-  const [dialogs, setDialogs] = useState([]);
+export const useDialogsRoot = () => {
+  const [dialogs, setDialogs] = useState(() => []);
 
+  const closeDialogByID = (dialogID) => {
+    setDialogs((d) => d.filter((dialog) => dialog.dialogID !== dialogID));
+  };
   const pushDialog = (component, props = {}) => {
     const newDialog = {
       component,
@@ -14,11 +17,9 @@ export const useDialogs = () => {
 
     setDialogs((m) => [...m, newDialog]);
 
-    return newDialog.dialogID;
-  };
-
-  const closeDialogByID = (dialogID) => {
-    setDialogs((d) => d.filter((dialog) => dialog.dialogID !== dialogID));
+    return () => {
+      closeDialogByID(newDialog.dialogID);
+    };
   };
 
   return {
@@ -28,11 +29,24 @@ export const useDialogs = () => {
   };
 };
 
-export const useDialogsContainer = () => {
+export const useDialogs = () => {
   const { pushDialog, closeDialogByID } = useContext(DialogsContext);
+
+  const closeFnsRef = useRef([]);
+
+  useEffect(() => {
+    return () => {
+      closeFnsRef.current.forEach((closeFn) => closeFn());
+    };
+  }, []);
+
+  const pushTempDialog = (...args) => {
+    closeFnsRef.current.push(pushDialog(...args));
+  };
 
   return {
     pushDialog,
+    pushTempDialog,
     closeDialogByID,
   };
 };
@@ -44,3 +58,5 @@ export const useDialog = () => {
     closeDialog,
   };
 };
+
+export const useDialogsContainer = useDialogs;

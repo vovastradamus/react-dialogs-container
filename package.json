@@ -1,12 +1,15 @@
 {
   "name": "react-dialogs-container",
-  "version": "1.2.0",
+  "version": "1.5.0",
+  "type": "module",
   "description": "Lightweight hooks ready dialogs management",
-  "main": "dist/index.js",
-  "module": "dist/index.es.js",
+  "main": "dist/main.js",
+  "module": "dist/module.js",
+  "source": "src/index.js",
   "scripts": {
     "test": "jest",
-    "build": "rollup -c --environment INCLUDE_DEPS,BUILD:production"
+    "build": "parcel build",
+    "vite:build": "vite build"
   },
   "repository": {
     "type": "git",
@@ -36,13 +39,9 @@
     "@babel/preset-env": "^7.11.5",
     "@babel/preset-react": "^7.10.4",
     "babel-jest": "^26.3.0",
-    "enzyme": "^3.11.0",
-    "enzyme-adapter-react-16": "^1.15.5",
     "jest": "^26.4.2",
-    "parcel": "^1.12.4",
+    "parcel": "^2.5.0",
     "react": "^16.13.1",
-    "react-dom": "^17.0.1",
-    "rollup": "^2.26.11"
-  },
-  "dependencies": {}
+    "react-dom": "^16.13.1"
+  }
 }
