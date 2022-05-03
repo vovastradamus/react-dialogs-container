@@ -39,11 +39,9 @@
     "@babel/preset-react": "^7.10.4",
     "babel-jest": "^26.3.0",
     "jest": "^26.4.2",
+    "parcel": "^2.5.0",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "vite": "^2.9.7"
-  },
-  "dependencies": {
-    "parcel": "^2.5.0"
   }
 }
