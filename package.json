@@ -2,6 +2,7 @@
   "name": "react-dialogs-container",
   "version": "1.3.0-beta.4",
   "description": "Lightweight hooks ready dialogs management",
+  "main": "dist/main.js",
   "module": "dist/main.js",
   "source": "src/index.js",
   "scripts": {
