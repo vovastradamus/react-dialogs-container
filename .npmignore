@@ -1,6 +1,7 @@
 # src
 # __test__
-# .parcel-cache
+# .parcel-cacheball
 # .github
 *
 !dist/*
+!src/*
