@@ -35,7 +35,9 @@ export const useDialogs = () => {
   const closeFnsRef = useRef([]);
 
   useEffect(() => {
-    closeFnsRef.current.forEach((closeFn) => closeFn());
+    return () => {
+      closeFnsRef.current.forEach((closeFn) => closeFn());
+    };
   }, []);
 
   const pushTempDialog = (...args) => {
