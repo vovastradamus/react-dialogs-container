@@ -1,11 +1,11 @@
 {
   "name": "react-dialogs-container",
-  "version": "1.3.0-beta.1",
+  "version": "1.3.0-beta.2",
   "description": "Lightweight hooks ready dialogs management",
   "main": "dist/index.js",
   "module": "dist/index.es.js",
   "source": "src/index.js",
-  "scripts": {  
+  "scripts": {
     "test": "jest",
     "build": "parcel build",
     "vite:build": "vite build"
