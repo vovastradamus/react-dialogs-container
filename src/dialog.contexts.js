@@ -1,7 +1,7 @@
 import { createContext, createElement } from "react";
 import { useDialogsRoot } from "./dialog.hooks";
 
-const createAlertCall = (text) => console.warn(text);
+const createAlertCall = (text) => () => console.warn(text);
 const callOutsideContextTemplate = (fnName) =>
   `Try to call ${fnName} outside Provider`;
 
