@@ -1,5 +1,5 @@
 import { createContext, createElement } from "react";
-import { useDialogs } from "./dialog.hooks";
+import { useDialogsRoot } from "./dialog.hooks";
 
 const createAlertCall = (text) => console.warn(text);
 const callOutsideContextTemplate = (fnName) =>
@@ -19,7 +19,7 @@ export const DialogsContext = createContext({
 
 export const DialogsProvider = (props) => {
   const { children } = props;
-  const dialogData = useDialogs();
+  const dialogData = useDialogsRoot();
 
   return createElement(
     DialogsContext.Provider,
