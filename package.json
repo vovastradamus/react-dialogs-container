@@ -2,7 +2,7 @@
   "name": "react-dialogs-container",
   "version": "1.5.3",
   "description": "Lightweight hooks ready dialogs management",
-  "source": "dist/index.js",
+  "main": "dist/index.js",
   "scripts": {
     "test": "jest",
     "build": "babel src -d ./dist --config-file ./config/babel.config.js",
