@@ -1,6 +1,12 @@
-# react-dialog-container
+# react-dialogs-container
 
 Library for manage dialogs inside application
+
+## Install
+
+```
+npm i react-dialogs-container
+```
 
 ## Setup:
 
