@@ -41,7 +41,11 @@ export const useDialogs = () => {
   }, []);
 
   const pushTempDialog = (...args) => {
-    closeFnsRef.current.push(pushDialog(...args));
+    const closeFn = pushDialog(...args);
+    
+    closeFnsRef.current.push(closeFn);
+
+    return closeFn;
   };
 
   return {
