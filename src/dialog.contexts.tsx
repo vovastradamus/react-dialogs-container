@@ -1,20 +1,14 @@
-import { createContext, createElement, ReactNode, ComponentType, ReactElement, ComponentPropsWithoutRef, useState, useMemo } from "react";
+import { createContext, createElement, ReactNode, ComponentType, ReactElement, useState, useMemo } from "react";
 import { dialogIDGenerator } from "./dialog.shared";
 import { DialogItem, CloseDialogFn } from "./dialog.types";
 
 const createAlertCall = (text: string): (() => void) => () => console.warn(text);
-const createAlertCallReturningCloseFn = (text: string): {
-  <P extends ComponentType<any>>(
-    component: P,
-    props?: Omit<ComponentPropsWithoutRef<P>, "closeDialog">
-  ): CloseDialogFn;
-  (component: ReactElement): CloseDialogFn;
-} => {
-  const fn = (() => {
-    console.warn(text);
-    return () => { };
-  }) as any;
-  return fn;
+const createAlertCallReturningCloseFn = (text: string): (
+  component: ComponentType<any> | ReactElement,
+  props?: Record<string, any>
+) => CloseDialogFn => () => {
+  console.warn(text);
+  return () => { };
 };
 const callOutsideContextTemplate = (fnName: string): string =>
   `Try to call ${fnName} outside Provider`;
@@ -25,13 +19,10 @@ export interface DialogContextValue {
 
 export interface DialogsContextValue {
   dialogs: DialogItem[];
-  pushDialog: {
-    <P extends ComponentType<any>>(
-      component: P,
-      props?: Omit<ComponentPropsWithoutRef<P>, "closeDialog">
-    ): CloseDialogFn;
-    (component: ReactElement): CloseDialogFn;
-  };
+  pushDialog: (
+    component: ComponentType<any> | ReactElement,
+    props?: Record<string, any>
+  ) => CloseDialogFn;
   closeDialogByID: (dialogID: number) => void;
 }
 
@@ -64,18 +55,13 @@ const useDialogsRoot = () => {
     });
   };
 
-  function pushDialog<P extends ComponentType<any>>(
-    component: P,
-    props?: Omit<ComponentPropsWithoutRef<P>, "closeDialog">
-  ): CloseDialogFn;
-  function pushDialog(component: ReactElement): CloseDialogFn;
-  function pushDialog<P extends ComponentType<any>>(
-    component: P | ReactElement,
-    props?: P extends ComponentType<any> ? Omit<ComponentPropsWithoutRef<P>, "closeDialog"> : never
-  ): CloseDialogFn {
+  const pushDialog = (
+    component: ComponentType<any> | ReactElement,
+    props: Record<string, any> = {}
+  ): CloseDialogFn => {
     const newDialog: DialogItem = {
       component,
-      props: props || {},
+      props,
       dialogID: dialogIDGenerator(),
     };
 
@@ -84,7 +70,7 @@ const useDialogsRoot = () => {
     return () => {
       closeDialogByID(newDialog.dialogID);
     };
-  }
+  };
 
   return {
     dialogs,
