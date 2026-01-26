@@ -1,9 +1,9 @@
 export const dialogIDGenerator = (() => {
   let modalID = 0;
-  return () => {
+  return (): number => {
     modalID += 1;
     return modalID;
   };
 })();
 
-export function noop() {}
+export function noop(): void {}

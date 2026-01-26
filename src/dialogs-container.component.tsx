@@ -1,7 +1,15 @@
-import { useContext, createElement, isValidElement, cloneElement } from "react";
-import { DialogContenxt, DialogsContext } from "./dialog.contexts";
+import React, { useContext, createElement, isValidElement, cloneElement, ReactElement, ComponentType } from "react";
+import { DialogContext, DialogsContext } from "./dialog.contexts";
+import { DialogProps, DialogItem } from "./dialog.types";
 
-const DialogWrapper = (props) => {
+interface DialogWrapperProps {
+  component: ComponentType<any> | ReactElement;
+  props: Record<string, any>;
+  dialogID: number;
+  closeDialogByID: (dialogID: number) => void;
+}
+
+const DialogWrapper = (props: DialogWrapperProps) => {
   const {
     component: Component,
     props: componentProps,
@@ -11,7 +19,7 @@ const DialogWrapper = (props) => {
   const closeDialog = () => closeDialogByID(dialogID);
 
   return createElement(
-    DialogContenxt.Provider,
+    DialogContext.Provider,
     {
       key: dialogID,
       value: {
@@ -22,8 +30,8 @@ const DialogWrapper = (props) => {
       ? cloneElement(Component, {
           closeDialog: closeDialog,
           ...componentProps,
-        })
-      : createElement(Component, {
+        } as any)
+      : createElement(Component as ComponentType<DialogProps>, {
           closeDialog: closeDialog,
           ...componentProps,
         })
@@ -33,7 +41,7 @@ const DialogWrapper = (props) => {
 export const DialogsContainer = () => {
   const { dialogs, closeDialogByID } = useContext(DialogsContext);
 
-  const dialogsView = dialogs.map((dialogProps) =>
+  const dialogsView = dialogs.map((dialogProps: DialogItem) =>
     createElement(DialogWrapper, {
       key: dialogProps.dialogID,
       closeDialogByID,
@@ -41,5 +49,5 @@ export const DialogsContainer = () => {
     })
   );
 
-  return dialogsView;
+  return <>{dialogsView}</>;
 };
