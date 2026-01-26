@@ -13,6 +13,7 @@
     }
   },
   "scripts": {
+    "preversion": "npm run build && npm test",
     "test": "vitest",
     "build": "tsc",
     "vite:build": "vite build"
