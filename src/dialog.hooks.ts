@@ -38,5 +38,3 @@ export const useDialog = () => {
     closeDialog,
   };
 };
-
-export const useDialogsContainer = useDialogs;

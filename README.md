@@ -19,11 +19,11 @@ npm i react-dialogs-container
 import {
   DialogsContainer,
   DialogsProvider,
-  useDialogsContainer,
+  useDialogs,
 } from "react-dialogs-container";
 
 const App = () => {
-  const { pushDialog } = useDialogsContainer();
+  const { pushDialog } = useDialogs();
 
   const handleOpenModal = () => {
     pushDialog(ModalComponent, { title: "My Dialog" });
@@ -49,7 +49,7 @@ const Root = () => (
 ### Basic Example with Component
 
 ```jsx
-import { useDialogsContainer } from "react-dialogs-container";
+import { useDialogs } from "react-dialogs-container";
 
 const MyDialog = ({ closeDialog, message }) => {
   return (
@@ -63,7 +63,7 @@ const MyDialog = ({ closeDialog, message }) => {
 };
 
 const App = () => {
-  const { pushDialog } = useDialogsContainer();
+  const { pushDialog } = useDialogs();
 
   return (
     <button onClick={() => pushDialog(MyDialog, { message: "Hello!" })}>
@@ -77,10 +77,10 @@ const App = () => {
 
 ```jsx
 import React from "react";
-import { useDialogsContainer } from "react-dialogs-container";
+import { useDialogs } from "react-dialogs-container";
 
 const App = () => {
-  const { pushDialog } = useDialogsContainer();
+  const { pushDialog } = useDialogs();
 
   const handleClick = () => {
     pushDialog(
@@ -89,6 +89,32 @@ const App = () => {
   };
 
   return <button onClick={handleClick}>Open</button>;
+};
+```
+
+### Using JSX Element Directly
+
+```jsx
+import { useDialogs } from "react-dialogs-container";
+
+const MyDialog = ({ closeDialog, title }) => {
+  return (
+    <div className="modal">
+      <h2>{title}</h2>
+      <button onClick={closeDialog}>Close</button>
+    </div>
+  );
+};
+
+const App = () => {
+  const { pushDialog } = useDialogs();
+
+  const handleClick = () => {
+    // Можно передать компонент напрямую как JSX элемент
+    pushDialog(<MyDialog title="My Dialog" />);
+  };
+
+  return <button onClick={handleClick}>Open Dialog</button>;
 };
 ```
 
@@ -113,7 +139,7 @@ const MyDialog = ({ title }) => {
 
 ```jsx
 const App = () => {
-  const { pushDialog } = useDialogsContainer();
+  const { pushDialog } = useDialogs();
 
   const handleOpen = () => {
     const closeDialog = pushDialog(MyDialog, { title: "Dialog" });
@@ -164,24 +190,21 @@ Component for rendering all active dialogs. Should be placed inside
 
 ### Hooks
 
-#### `useDialogsContainer` (alias for `useDialogs`)
+#### `useDialogs`
 
 Main hook for managing dialogs.
 
 **Returns:**
 
 - `pushDialog(component, props?): CloseDialogFn` - opens a new dialog
-  - `component: ComponentType<DialogProps> | ReactElement` - component or React
-    element
-  - `props?: Record<string, any>` - props for the component
+  - `component: ComponentType<DialogProps> | ReactElement` - component, React
+    element, or JSX element (e.g., `<MyDialog />`)
+  - `props?: Record<string, any>` - props for the component (ignored if
+    component is already a ReactElement)
   - Returns a function to close the dialog
 - `closeDialogByID(dialogID: number): void` - closes dialog by ID
 - `pushTempDialog(component, props?): CloseDialogFn` - opens a temporary dialog
   (automatically closes when component unmounts)
-
-#### `useDialogs`
-
-Alternative name for `useDialogsContainer`. Provides the same methods.
 
 #### `useDialog`
 
